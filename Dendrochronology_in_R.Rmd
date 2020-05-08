@@ -4,12 +4,11 @@ author: "Jen Baron, j.baron@alumni.ubc.ca, UBC Tree Ring Lab"
 date: 'May 8, 2020'
 output:
   html_document:
-    keep_md: true
-    toc: true
-    toc_float: true
-    toc_depth: 3  # upto three depths of headings (specified by #, ## and ###)
-    number_sections: true  ## if you want number sections at each table header
+    keep_md: yes
+    number_sections: yes
     theme: sandstone
+    toc: yes
+    toc_float: yes
 ---
 
 # Packages
@@ -20,4 +19,64 @@ library(tidyr)
 library(ggplot2)
 ```
 
+# Load Data
 
+```{r}
+pinery.rwl <- read.rwl("data/pinery.rwl")
+#master_all.rwl <- read.rwl("data/master_all.rwl")
+```
+
+```{r}
+rwl.report(pinery.rwl)
+```
+
+# Basic Summary Statistics
+
+```{r}
+rwl.stats(pinery.rwl)
+```
+
+```{r}
+seg.plot(pinery.rwl)
+```
+
+# Crossdating
+
+
+```{r}
+pinery.corr <- corr.rwl.seg(pinery.rwl, seg.length = 40)
+```
+
+```{r}
+#identify flags
+flags <- as.data.frame(pinery.corr$flags) 
+flags
+
+#save flagged series
+flagged <- pinery.rwl$P1810Ae 
+names(flagged) <- rownames(pinery.rwl)
+
+#correlation coefficient
+rho <- as.data.frame(pinery.corr$spearman.rho)
+rho %>% round(2)
+
+#
+overall <- pinery.corr$overall
+overall %>% round(2)
+
+#average series correlation
+avg.seg.rho <- as.data.frame(pinery.corr$avg.seg.rho)
+avg.seg.rho %>% round(2)
+```
+
+```{r}
+ccf.series.rwl(pinery.rwl, flagged)
+```
+
+```{r}
+corr.series.seg(pinery.rwl, flagged)
+```
+
+```{r}
+series.rwl.plot(pinery.rwl, flagged, seg.length=20)
+```
