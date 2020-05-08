@@ -40,11 +40,24 @@ rwl.stats(pinery.rwl)
 seg.plot(pinery.rwl)
 ```
 
+## Truncate Based on Date / Sample Depth
+
+Truncate to 1898 (sample depth = 8)
+
+```{r}
+pinery.rwl.trunc <- pinery.rwl[46:166,]
+```
+
+
+
+
+
+
 # Crossdating
 
 
 ```{r}
-pinery.corr <- corr.rwl.seg(pinery.rwl, seg.length = 40)
+pinery.corr <- corr.rwl.seg(pinery.rwl.trunc, seg.length = 50, 1918)
 ```
 
 ```{r}
@@ -52,31 +65,19 @@ pinery.corr <- corr.rwl.seg(pinery.rwl, seg.length = 40)
 flags <- as.data.frame(pinery.corr$flags) 
 flags
 
-#save flagged series
-flagged <- pinery.rwl$P1810Ae 
-names(flagged) <- rownames(pinery.rwl)
-
-#correlation coefficient
-rho <- as.data.frame(pinery.corr$spearman.rho)
-rho %>% round(2)
-
-#
-overall <- pinery.corr$overall
-overall %>% round(2)
-
 #average series correlation
 avg.seg.rho <- as.data.frame(pinery.corr$avg.seg.rho)
 avg.seg.rho %>% round(2)
+
+#correlation by series
+overall <- pinery.corr$overall
+overall %>% round(2)
+
+#correlation by segment and series
+rho <- as.data.frame(pinery.corr$spearman.rho)
+rho %>% round(2)
 ```
 
-```{r}
-ccf.series.rwl(pinery.rwl, flagged)
-```
 
-```{r}
-corr.series.seg(pinery.rwl, flagged)
-```
 
-```{r}
-series.rwl.plot(pinery.rwl, flagged, seg.length=20)
-```
+
