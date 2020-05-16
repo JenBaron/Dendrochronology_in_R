@@ -1,21 +1,25 @@
 ---
 title: "Dendrochronology in R"
 author: "Jen Baron, j.baron@alumni.ubc.ca, UBC Tree Ring Lab"
-date: 'May 8, 2020'
+date: "May 15, 2020"
 output:
   html_document:
     keep_md: yes
+    theme: flatly
     number_sections: yes
-    theme: sandstone
     toc: yes
     toc_float: yes
 ---
+
+```{r global_options, echo = TRUE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
 
 # Packages
 
 ```{r setup}
 library(dplR) # dendrochronology
-library(tidyr)
+library(dplyr)
 library(ggplot2)
 ```
 
@@ -23,7 +27,16 @@ library(ggplot2)
 
 ```{r}
 pinery.rwl <- read.rwl("data/pinery.rwl")
-#master_all.rwl <- read.rwl("data/master_all.rwl")
+```
+
+
+```{r}
+master_all.rwl <- read.rwl("data/master_all.rwl")
+master.rwl <- read.rwl("data/master_all.rwl")
+mi015.rwl <- read.rwl("data/mi015.rwl")
+cana127.rwl <- read.rwl("data/cana127.rwl")
+cana148.rwl <- read.rwl("data/cana148.rwl")
+pa008.rwl <- read.rwl("data/pa008.rwl")
 ```
 
 ```{r}
@@ -79,7 +92,7 @@ rho %>% round(2)
 
 There is (at least) one other way of looking at the average interseries
 correlation of a data set. The interseries.cor function in dplR gives
-a measure of average interseries correlation that is dierent from the rbar
+a measure of average interseries correlation that is different from the rbar
 measurements from rwi.stats. In this function, correlations are calculated
 serially between each tree-ring series and a master chronology built from
 all the other series in the rwl object (leave-one-out principle).
@@ -87,6 +100,210 @@ all the other series in the rwl object (leave-one-out principle).
 ```{r}
 interseries.cor(pinery.rwl) %>% round(2)
 ```
+
+
+# Compare to Master Chronologies 
+
+See Master Chronology .Rmd for details
+
+
+## Compare to Filtered Regional Chronology
+
+```{r}
+master.corr <- corr.rwl.seg(pinery.rwl.trunc, master=master.rwl,seg.length=30, 1853)
+```
+
+```{r}
+#identify flags
+flags.2 <- as.data.frame(master.corr$flags) 
+flags.2
+
+#correlation by series
+overall.2 <- master.corr$overall %>% as.data.frame()
+overall.2 %>% round(2)
+
+
+#average series correlation
+avg.seg.rho.2 <- as.data.frame(master.corr$avg.seg.rho)
+avg.seg.rho.2 %>% round(2)
+
+
+#correlation by segment and series
+rho.2 <- as.data.frame(master.corr$spearman.rho)
+rho.2 %>% round(2)
+
+
+summarize(overall.2, mean = mean(rho)) %>% round(2)
+```
+
+
+## Compare to Full Regional Chronology
+
+```{r}
+master.corr.all <- corr.rwl.seg(pinery.rwl.trunc, master=master_all.rwl, seg.length=50, 1853)
+```
+
+```{r}
+#identify flags
+flags.3 <- as.data.frame(master.corr.all$flags) 
+flags.3
+
+#correlation by series
+overall.3 <- master.corr.all$overall %>% as.data.frame()
+overall.3 %>% round(2)
+
+
+#average series correlation
+avg.seg.rho.3 <- as.data.frame(master.corr.all$avg.seg.rho)
+avg.seg.rho.3 %>% round(2)
+
+
+#correlation by segment and series
+rho.3 <- as.data.frame(master.corr.all$spearman.rho)
+rho.3 %>% round(2)
+
+
+summarize(overall.3, mean = mean(rho)) %>% round(2)
+```
+
+
+## Compare to Each Master Chronlogy
+
+### Wyse - Platte Plains - PIST - ITRDB MI015
+
+
+```{r}
+rwl.report(mi015.rwl)
+master.corr.mi015 <- corr.rwl.seg(pinery.rwl.trunc, master=mi015.rwl, seg.length = 30, bin.floor = 1913)
+```
+
+```{r}
+#identify flags
+flags.4 <- as.data.frame(master.corr.mi015$flags) 
+flags.4
+
+#correlation by series
+overall.4 <- master.corr.mi015$overall %>% as.data.frame()
+overall.4 %>% round(2)
+
+
+#average series correlation
+avg.seg.rho.4 <- as.data.frame(master.corr.mi015$avg.seg.rho)
+avg.seg.rho.4 %>% round(2)
+
+
+#correlation by segment and series
+rho.4 <- as.data.frame(master.corr.mi015$spearman.rho)
+rho.4 %>% round(2)
+
+
+summarize(overall.4, mean = mean(rho)) %>% round(2)
+```
+
+### Guyette - Dividing Lake - PIST - ITRDB CANA127
+
+```{r}
+rwl.report(cana127.rwl)
+master.corr.cana127 <- corr.rwl.seg(pinery.rwl.trunc, master=cana127.rwl, seg.length = 30, bin.floor=1905)
+```
+
+```{r}
+#identify flags
+flags.5 <- as.data.frame(master.corr.cana127$flags) 
+flags.5
+
+#correlation by series
+overall.5 <- master.corr.cana127$overall %>% as.data.frame()
+overall.5 %>% round(2)
+
+
+#average series correlation
+avg.seg.rho.5 <- as.data.frame(master.corr.cana127$avg.seg.rho)
+avg.seg.rho.5 %>% round(2)
+
+
+#correlation by segment and series
+rho.5 <- as.data.frame(master.corr.cana127$spearman.rho)
+rho.5 %>% round(2)
+
+
+summarize(overall.5, mean = mean(rho)) %>% round(2)
+```
+
+### Guyette - Dividing Lake Aquatic - PIST - ITRDB CANA148
+
+```{r}
+rwl.report(cana148.rwl)
+master.corr.cana148 <- corr.rwl.seg(pinery.rwl.trunc, master=cana148.rwl, seg.length = 30, bin.floor=1904)
+```
+
+```{r}
+#identify flags
+flags.6 <- as.data.frame(master.corr.cana148$flags) 
+flags.6
+
+#correlation by series
+overall.6 <- master.corr.cana148$overall %>% as.data.frame()
+overall.6 %>% round(2)
+
+
+#average series correlation
+avg.seg.rho.6 <- as.data.frame(master.corr.cana148$avg.seg.rho) %>% as.data.frame
+avg.seg.rho.6 %>% round(2)
+
+
+#correlation by segment and series
+rho.6 <- as.data.frame(master.corr.cana148$spearman.rho)
+rho.6 %>% round(2)
+
+
+summarize(overall.6, mean = mean(rho)) %>% round(2)
+```
+
+
+### Cook - Longfellow Trail - PIST - ITRDB PA008
+
+
+```{r}
+rwl.report(pa008.rwl)
+master.corr.pa008 <- corr.rwl.seg(pinery.rwl.trunc, master=pa008.rwl, seg.length=40, bin.floor = 1902)
+```
+
+
+
+```{r}
+#identify flags
+flags.7 <- as.data.frame(master.corr.pa008$flags) 
+flags.7
+
+#correlation by series
+overall.7 <- master.corr.pa008$overall %>% as.data.frame()
+overall.7 %>% round(2)
+
+
+#average series correlation
+avg.seg.rho.7 <- as.data.frame(master.corr.pa008$avg.seg.rho)
+avg.seg.rho.7 %>% round(2)
+
+
+#correlation by segment and series
+rho.7 <- as.data.frame(master.corr.pa008$spearman.rho)
+rho.7 %>% round(2)
+
+
+summarize(overall.7, mean = mean(rho)) %>% round(2)
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
