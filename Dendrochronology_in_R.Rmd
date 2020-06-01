@@ -59,6 +59,7 @@ Truncate to 1898 (sample depth = 8)
 
 ```{r}
 pinery.rwl.trunc <- pinery.rwl[46:166,]
+#write.rwl(pinery.rwl.trunc, "outputs/pinery_rwl_trunc.rwl", format=c("tucson"))
 ```
 
 
@@ -309,33 +310,53 @@ summarize(overall.7, mean = mean(rho)) %>% round(2)
 
 # Detrending
 
- Detrend all series (with ModNegExp)
+## Compare Methods
+
 ```{r}
-pinery.rwi <- detrend(rwl = pinery.rwl.trunc, method = "ModNegExp")
+detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = TRUE, verbose=TRUE, return.info = TRUE)
+```
+
+
+
+## Apply Detrending Method
+```{r}
+pinery.rwi <- detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp")) #return.info = TRUE)
+
 #pinery.rwi$model.info
 ```
 
 
 
+
 ## Descriptive Statistics
+
 
 ```{r}
 pinery.ids <- read.ids(pinery.rwl.trunc)
 pinery.ids
 ```
 
+
+The "Ar" approach is also known as prewhitening where the detrended series is the residuals of an ar model divided by the mean of those residuals to yield a series with white noise and a mean of one. This method removes all but the high frequency variation in the series and should only be used as such.
+
 ```{r}
-rwi.stats(pinery.rwi, pinery.ids, prewhiten = TRUE)
+rwi.stats(pinery.rwi, pinery.ids, prewhiten=FALSE) #running.window=TRUE, window.length = 50)
+```
+
+```{r}
+interseries.cor(pinery.rwi, biweight=TRUE) %>% round(3)
 ```
 
 
 # Building a Mean Value Chronology
 
+The simplest way to make a chronology in dplR is chronology is with the crn function which also has a plot method. This defaults to building a mean-value chronology by averaging the rows of the rwi data using Tukey’s biweight robust mean (function tbrm in dplR). 
+
 ```{r}
 pinery.crn <- chron(pinery.rwi, prewhiten=FALSE)
 str(pinery.crn)
 
-pinery.crn$samp.depth <- NULL
+#pinery.crn$samp.depth <- NULL
 ```
 
 ## Plot Chronology
@@ -370,7 +391,7 @@ xx <- c(yrs,rev(yrs))
 yy <- c(pinery.avg+pinery.se*2,rev(pinery.avg-pinery.se*2))
 polygon(xx,yy,col="grey80",border = NA)
 lines(yrs, pinery.avg, col = "black")
-#lines(yrs, ffcsaps(pinery.avg, nyrs = 15), col = "red", lwd = 2) #adds a spline
+lines(yrs, ffcsaps(pinery.avg, nyrs = 15), col = "red", lwd = 1) #adds a spline
 axis(1); axis(2); axis(3); axis(4)
 box()
 ```
