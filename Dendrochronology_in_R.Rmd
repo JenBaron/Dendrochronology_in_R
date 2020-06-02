@@ -320,9 +320,9 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 
 ## Apply Detrending Method
 ```{r}
-pinery.rwi <- detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp")) #return.info = TRUE)
+pinery.rwi.info <- detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp"), return.info = TRUE)
 
-#pinery.rwi$model.info
+pinery.rwi <- pinery.rwi.info$series
 ```
 
 
@@ -330,18 +330,28 @@ pinery.rwi <- detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp")) #return.i
 
 ## Descriptive Statistics
 
+### Read IDs
 
 ```{r}
 pinery.ids <- read.ids(pinery.rwl.trunc)
 pinery.ids
 ```
 
-
-The "Ar" approach is also known as prewhitening where the detrended series is the residuals of an ar model divided by the mean of those residuals to yield a series with white noise and a mean of one. This method removes all but the high frequency variation in the series and should only be used as such.
+### Standard Chronology
 
 ```{r}
 rwi.stats(pinery.rwi, pinery.ids, prewhiten=FALSE) #running.window=TRUE, window.length = 50)
 ```
+
+
+### Residual Chronology
+
+```{r}
+rwi.stats(pinery.rwi, pinery.ids, prewhiten=TRUE) #running.window=TRUE, window.length = 50)
+```
+
+
+### Interseries Correlations
 
 ```{r}
 interseries.cor(pinery.rwi, biweight=TRUE) %>% round(3)
@@ -352,11 +362,12 @@ interseries.cor(pinery.rwi, biweight=TRUE) %>% round(3)
 
 The simplest way to make a chronology in dplR is chronology is with the crn function which also has a plot method. This defaults to building a mean-value chronology by averaging the rows of the rwi data using Tukey’s biweight robust mean (function tbrm in dplR). 
 
-```{r}
-pinery.crn <- chron(pinery.rwi, prewhiten=FALSE)
-str(pinery.crn)
 
-#pinery.crn$samp.depth <- NULL
+```{r}
+pinery.crn <- chron(pinery.rwi, prewhiten=TRUE, biweight = TRUE)
+head(pinery.crn)
+
+pinery.crn$samp.depth <- NULL
 ```
 
 ## Plot Chronology

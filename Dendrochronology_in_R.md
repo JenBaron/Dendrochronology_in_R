@@ -4901,7 +4901,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1809Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fb65ab64108>
+## <environment: 0x7fd63b5f1ec0>
 ## 
 ## $model.info$P1809Ce$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -4944,7 +4944,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fb65c688ab0>
+## <environment: 0x7fd63db4b9a0>
 ## 
 ## $model.info$P1810Ae$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -4987,7 +4987,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fb65d56ad60>
+## <environment: 0x7fd6400d5690>
 ## 
 ## $model.info$P1810Be$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5030,7 +5030,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fb65e8ca6d0>
+## <environment: 0x7fd640bb3310>
 ## 
 ## $model.info$P1810Ce$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5073,7 +5073,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fb659eb52a8>
+## <environment: 0x7fd63b6b4e18>
 ## 
 ## $model.info$P1811Ae$ModNegExp$coefs
 ##      Estimate  Std. Error    t value     Pr(>|t|)
@@ -5116,7 +5116,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fb65958a790>
+## <environment: 0x7fd63f10ffc0>
 ## 
 ## $model.info$P1811Be$ModNegExp$coefs
 ##      Estimate  Std. Error    t value     Pr(>|t|)
@@ -5159,7 +5159,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fb65d6317e0>
+## <environment: 0x7fd63eac7e18>
 ## 
 ## $model.info$P1811Ce$ModNegExp$coefs
 ##      Estimate  Std. Error   t value     Pr(>|t|)
@@ -5202,7 +5202,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fb65e3aa4a0>
+## <environment: 0x7fd6402691f8>
 ## 
 ## $model.info$P1812Ae$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5245,7 +5245,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fb65eda9700>
+## <environment: 0x7fd63ff70628>
 ## 
 ## $model.info$P1812Be$ModNegExp$coefs
 ##      Estimate  Std. Error   t value     Pr(>|t|)
@@ -5288,7 +5288,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812De$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fb65e4b2d28>
+## <environment: 0x7fd63fd4c238>
 ## 
 ## $model.info$P1812De$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5424,9 +5424,9 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## Apply Detrending Method
 
 ```r
-pinery.rwi <- detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp")) #return.info = TRUE)
+pinery.rwi.info <- detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp"), return.info = TRUE)
 
-#pinery.rwi$model.info
+pinery.rwi <- pinery.rwi.info$series
 ```
 
 
@@ -5434,6 +5434,7 @@ pinery.rwi <- detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp")) #return.i
 
 ## Descriptive Statistics
 
+### Read IDs
 
 
 ```r
@@ -5457,8 +5458,7 @@ pinery.ids
 ## P1812De   12    3
 ```
 
-
-The "Ar" approach is also known as prewhitening where the detrended series is the residuals of an ar model divided by the mean of those residuals to yield a series with white noise and a mean of one. This method removes all but the high frequency variation in the series and should only be used as such.
+### Standard Chronology
 
 
 ```r
@@ -5471,6 +5471,24 @@ rwi.stats(pinery.rwi, pinery.ids, prewhiten=FALSE) #running.window=TRUE, window.
 ##     eps   snr
 ## 1 0.562 1.284
 ```
+
+
+### Residual Chronology
+
+
+```r
+rwi.stats(pinery.rwi, pinery.ids, prewhiten=TRUE) #running.window=TRUE, window.length = 50)
+```
+
+```
+##   n.cores n.trees    n n.tot n.wt n.bt rbar.tot rbar.wt rbar.bt c.eff rbar.eff
+## 1      12       4 3.95    66   12   54    0.325   0.399   0.309     3    0.516
+##     eps   snr
+## 1 0.808 4.204
+```
+
+
+### Interseries Correlations
 
 
 ```r
@@ -5499,19 +5517,24 @@ interseries.cor(pinery.rwi, biweight=TRUE) %>% round(3)
 The simplest way to make a chronology in dplR is chronology is with the crn function which also has a plot method. This defaults to building a mean-value chronology by averaging the rows of the rwi data using Tukey’s biweight robust mean (function tbrm in dplR). 
 
 
+
 ```r
-pinery.crn <- chron(pinery.rwi, prewhiten=FALSE)
-str(pinery.crn)
+pinery.crn <- chron(pinery.rwi, prewhiten=TRUE, biweight = TRUE)
+head(pinery.crn)
 ```
 
 ```
-## Classes 'crn' and 'data.frame':	121 obs. of  2 variables:
-##  $ xxxstd    : num  0.867 0.864 0.984 0.816 1.173 ...
-##  $ samp.depth: num  8 8 8 8 8 8 8 9 10 11 ...
+##         xxxstd    xxxres samp.depth
+## 1898 0.8671256        NA          8
+## 1899 0.8641290 0.9733467          8
+## 1900 0.9841930 0.9200743          8
+## 1901 0.8159552 0.8260720          8
+## 1902 1.1733469 1.2835061          8
+## 1903 1.1951044 1.0563245          8
 ```
 
 ```r
-#pinery.crn$samp.depth <- NULL
+pinery.crn$samp.depth <- NULL
 ```
 
 ## Plot Chronology
@@ -5521,7 +5544,7 @@ str(pinery.crn)
 crn.plot(pinery.crn, add.spline = TRUE, nyrs=15)
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
 
 
 ## Add Uncertainty Estimates
@@ -5555,7 +5578,7 @@ axis(1); axis(2); axis(3); axis(4)
 box()
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
 
 
 # Conclude Session
