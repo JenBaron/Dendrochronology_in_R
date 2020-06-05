@@ -4901,7 +4901,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1809Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fd63b5f1ec0>
+## <environment: 0x7fe8f5fa94a0>
 ## 
 ## $model.info$P1809Ce$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -4944,7 +4944,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fd63db4b9a0>
+## <environment: 0x7fe8f4442190>
 ## 
 ## $model.info$P1810Ae$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -4987,7 +4987,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fd6400d5690>
+## <environment: 0x7fe8f92e29f8>
 ## 
 ## $model.info$P1810Be$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5030,7 +5030,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fd640bb3310>
+## <environment: 0x7fe8da10b5f8>
 ## 
 ## $model.info$P1810Ce$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5073,7 +5073,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fd63b6b4e18>
+## <environment: 0x7fe8db057bb0>
 ## 
 ## $model.info$P1811Ae$ModNegExp$coefs
 ##      Estimate  Std. Error    t value     Pr(>|t|)
@@ -5116,7 +5116,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fd63f10ffc0>
+## <environment: 0x7fe8db1f4f10>
 ## 
 ## $model.info$P1811Be$ModNegExp$coefs
 ##      Estimate  Std. Error    t value     Pr(>|t|)
@@ -5159,7 +5159,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fd63eac7e18>
+## <environment: 0x7fe8db9b20f8>
 ## 
 ## $model.info$P1811Ce$ModNegExp$coefs
 ##      Estimate  Std. Error   t value     Pr(>|t|)
@@ -5202,7 +5202,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fd6402691f8>
+## <environment: 0x7fe8dc9c62e8>
 ## 
 ## $model.info$P1812Ae$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5245,7 +5245,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fd63ff70628>
+## <environment: 0x7fe8f508c3c0>
 ## 
 ## $model.info$P1812Be$ModNegExp$coefs
 ##      Estimate  Std. Error   t value     Pr(>|t|)
@@ -5288,7 +5288,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812De$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fd63fd4c238>
+## <environment: 0x7fe8f4cb3188>
 ## 
 ## $model.info$P1812De$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5534,7 +5534,14 @@ head(pinery.crn)
 ```
 
 ```r
-pinery.crn$samp.depth <- NULL
+#pinery.crn$samp.depth <- NULL
+```
+
+Remove standard and residual chronologies
+
+```r
+pinery.STD <- pinery.crn %>% select(-xxxres)
+pinery.RES <- pinery.crn %>% select(-xxxstd)
 ```
 
 ## Plot Chronology
@@ -5544,7 +5551,7 @@ pinery.crn$samp.depth <- NULL
 crn.plot(pinery.crn, add.spline = TRUE, nyrs=15)
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
 
 
 ## Add Uncertainty Estimates
@@ -5578,11 +5585,83 @@ axis(1); axis(2); axis(3); axis(4)
 box()
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
+
+# Save Outputs
 
 
-# Conclude Session
+```r
+write.crn(pinery.STD, "outputs/pinery_STD.crn")
+```
 
+```
+## [1] "outputs/pinery_STD.crn"
+```
+
+```r
+write.crn(pinery.RES, "outputs/pinery_RES.crn")
+```
+
+```
+##         xxxres samp.depth
+## 1898 9.9900000          0
+## 1899 0.9733467          8
+## 1900 0.9200743          8
+## 1901 0.8260720          8
+## 1902 1.2835061          8
+## 1903 1.0563245          8
+```
+
+```
+## [1] "outputs/pinery_RES.crn"
+```
+
+
+# Reproducibility
+
+```r
+citation("dplR")
+```
+
+```
+## 
+## Bunn AG (2008). "A dendrochronology program library in R (dplR)."
+## _Dendrochronologia_, *26*(2), 115-124. ISSN 1125-7865, doi:
+## 10.1016/j.dendro.2008.01.002 (URL:
+## https://doi.org/10.1016/j.dendro.2008.01.002).
+## 
+## Bunn AG (2010). "Statistical and visual crossdating in R using the dplR
+## library." _Dendrochronologia_, *28*(4), 251-258. ISSN 1125-7865, doi:
+## 10.1016/j.dendro.2009.12.001 (URL:
+## https://doi.org/10.1016/j.dendro.2009.12.001).
+## 
+##   Andy Bunn, Mikko Korpela, Franco Biondi, Filipe Campelo, Pierre
+##   Mérian, Fares Qeadan and Christian Zang (2020). dplR:
+##   Dendrochronology Program Library in R. R package version 1.7.1.
+##   https://CRAN.R-project.org/package=dplR
+## 
+## To see these entries in BibTeX format, use 'print(<citation>,
+## bibtex=TRUE)', 'toBibtex(.)', or set
+## 'options(citation.bibtex.max=999)'.
+```
+
+```r
+Sys.time()
+```
+
+```
+## [1] "2020-06-05 15:34:03 PDT"
+```
+
+```r
+git2r::repository()
+```
+
+```
+## Local:    master /Users/JenBaron/Documents/UWO/UWO NSERC/Statistical Analysis/Dendrochronology/Dendrochronology in R/Dendrochronology_in_R
+## Remote:   master @ origin (https://github.com/JenBaron/Dendrochronology_in_R.git)
+## Head:     [f63e16a] 2020-06-02: Residual chronology
+```
 
 ```r
 sessionInfo()
@@ -5607,17 +5686,17 @@ sessionInfo()
 ## [1] ggplot2_3.3.0 dplyr_0.8.5   dplR_1.7.1   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.4.6       compiler_4.0.0     pillar_1.4.3       plyr_1.8.6        
-##  [5] iterators_1.0.12   R.methodsS3_1.8.0  R.utils_2.9.2      tools_4.0.0       
-##  [9] digest_0.6.25      gtable_0.3.0       evaluate_0.14      tibble_3.0.1      
-## [13] lifecycle_0.2.0    lattice_0.20-41    pkgconfig_2.0.3    png_0.1-7         
-## [17] rlang_0.4.5        foreach_1.5.0      Matrix_1.2-18      yaml_2.2.1        
-## [21] xfun_0.13          withr_2.2.0        stringr_1.4.0      knitr_1.28        
-## [25] vctrs_0.2.4        grid_4.0.0         tidyselect_1.0.0   glue_1.4.0        
-## [29] R6_2.4.1           XML_3.99-0.3       rmarkdown_2.1      purrr_0.3.4       
-## [33] magrittr_1.5       codetools_0.2-16   scales_1.1.0       matrixStats_0.56.0
-## [37] htmltools_0.4.0    ellipsis_0.3.0     MASS_7.3-51.6      assertthat_0.2.1  
-## [41] colorspace_1.4-1   stringi_1.4.6      munsell_0.5.0      signal_0.7-6      
-## [45] crayon_1.3.4       R.oo_1.23.0
+##  [1] Rcpp_1.0.4.6       git2r_0.26.1       compiler_4.0.0     pillar_1.4.3      
+##  [5] plyr_1.8.6         iterators_1.0.12   R.methodsS3_1.8.0  R.utils_2.9.2     
+##  [9] tools_4.0.0        digest_0.6.25      gtable_0.3.0       evaluate_0.14     
+## [13] tibble_3.0.1       lifecycle_0.2.0    lattice_0.20-41    pkgconfig_2.0.3   
+## [17] png_0.1-7          rlang_0.4.5        foreach_1.5.0      Matrix_1.2-18     
+## [21] yaml_2.2.1         xfun_0.13          withr_2.2.0        stringr_1.4.0     
+## [25] knitr_1.28         vctrs_0.2.4        grid_4.0.0         tidyselect_1.0.0  
+## [29] glue_1.4.0         R6_2.4.1           XML_3.99-0.3       rmarkdown_2.1     
+## [33] purrr_0.3.4        magrittr_1.5       codetools_0.2-16   scales_1.1.0      
+## [37] matrixStats_0.56.0 htmltools_0.4.0    ellipsis_0.3.0     MASS_7.3-51.6     
+## [41] assertthat_0.2.1   colorspace_1.4-1   stringi_1.4.6      munsell_0.5.0     
+## [45] signal_0.7-6       crayon_1.3.4       R.oo_1.23.0
 ```
 

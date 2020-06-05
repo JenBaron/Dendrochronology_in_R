@@ -1,0 +1,111 @@
+---
+title: "Wavelet Analysis"
+author: "Jen Baron, j.baron@alumni.ubc.ca, UBC Tree Ring Lab"
+date: "Juen 5, 2020"
+output:
+  html_document:
+    keep_md: yes
+    theme: flatly
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Packages
+```{r}
+library(dplR)
+library(forecast)
+library(dplyr)
+```
+
+# Load Data
+```{r}
+pinery.STD <- read.crn("outputs/pinery.STD", header=NULL)
+pinery.RES <- read.crn("outputs/pinery.RES", header=NULL)
+```
+
+```{r}
+years <- as.numeric(rownames(pinery.STD))
+pinery.STD.0 <- pinery.STD[, 1]
+na.omit(pinery.RES) -> pinery.RES
+years2 <- as.numeric(rownames(pinery.RES))
+pinery.RES.0 <- pinery.RES[, 1]
+```
+
+# Autocorrelation
+
+We will start our analysis on the chronology by looking at its autocorrelation structure using R’s acf and pacf functions.
+
+```{r}
+op <- par(no.readonly = TRUE) # Save to reset on exit
+par(mfcol=c(1, 2))
+acf(pinery.STD.0)
+pacf(pinery.STD.0)
+par(op)
+```
+
+The ACF function indicates significant autocorrelation out to a lag of about 5 years (which is not uncommon in tree-ring data) while the PACF plot suggests that the autocorrelation drops off after lag 1. 
+
+We now have the first bit of solid information about the time-series properties of these data, it looks like they fit an AR(1) model.
+
+
+The easiest way is to use the ar function which fits an autoregressive model and selects the order by AIC.
+
+```{r}
+pinery.ar <- ar(pinery.STD.0)
+pinery.ar
+```
+
+
+Indeed, ar produces an AR(1) model. We can do the same sort of analysis by automatically fitting an ARMA model using the auto.arima function in the package "forecast".
+
+```{r}
+pinery.arima <- auto.arima(pinery.STD.0, ic="bic")
+summary(pinery.arima)
+head(residuals(pinery.arima))
+coef(pinery.arima)
+acf(residuals(pinery.arima),plot=FALSE)
+```
+
+
+Instead of an AR(1) model, auto.arima went for an ARMA(0,1,1) model. The parsimony principle certainly likes a nice simple ARMA(1,1) model. Note that we could look at the residuals (just the first few), model coefficients, etc. quite easily. And indeed the residuals are quite clean as we would expect.
+
+
+
+
+# Standard Morlet wavelet transform analysis
+
+## St
+
+```{r}
+out.wave <- morlet(y1 = pinery.STD.0, x1 = years, p2 = 6, dj = 0.1,
+                   siglvl = 0.95)
+wavelet.plot(out.wave, useRaster = NA)
+```
+
+
+
+```{r}
+out.wave2 <- morlet(y1 = pinery.RES.0, x1 = years2, p2 = 6, dj = 0.1,
+                   siglvl = 0.95)
+wavelet.plot(out.wave2, useRaster = NA)
+```
+
+# Cross-wavelet Analysis
+
+For cross-wavelet analysis (chronology vs another index such as the PDO index) I used the "WaveletComp" package in R.
+
+
+
+
+# Reproducibility
+```{r}
+citation("dplR")
+Sys.time()
+git2r::repository()
+sessionInfo()
+```

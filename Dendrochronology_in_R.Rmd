@@ -367,7 +367,13 @@ The simplest way to make a chronology in dplR is chronology is with the crn func
 pinery.crn <- chron(pinery.rwi, prewhiten=TRUE, biweight = TRUE)
 head(pinery.crn)
 
-pinery.crn$samp.depth <- NULL
+#pinery.crn$samp.depth <- NULL
+```
+
+Remove standard and residual chronologies
+```{r}
+pinery.STD <- pinery.crn %>% select(-xxxres)
+pinery.RES <- pinery.crn %>% select(-xxxstd)
 ```
 
 ## Plot Chronology
@@ -407,10 +413,19 @@ axis(1); axis(2); axis(3); axis(4)
 box()
 ```
 
-
-# Conclude Session
+# Save Outputs
 
 ```{r}
+write.crn(pinery.STD, "outputs/pinery_STD.crn")
+write.crn(pinery.RES, "outputs/pinery_RES.crn")
+```
+
+
+# Reproducibility
+```{r}
+citation("dplR")
+Sys.time()
+git2r::repository()
 sessionInfo()
 ```
 
