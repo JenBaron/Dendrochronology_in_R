@@ -1384,13 +1384,319 @@ summarize(overall.7, mean = mean(rho)) %>% round(2)
 ```
 
 
+# Compare to Csank
+
+
+
+```r
+HL.rwl <- read.rwl("data/csank_HL.rwl")
+```
+
+```
+## Attempting to automatically detect format.
+## Assuming a Tucson format file.
+## There does not appear to be a header in the rwl file
+## There are 36 series
+## 1    	HL024B  	 1925	 2013	0.001
+## 2    	HL024A  	 1897	 2013	0.001
+## 3    	HL023B  	 1951	 2013	0.001
+## 4    	HL023A  	 1902	 2013	0.001
+## 5    	HL022B  	 1938	 2013	0.001
+## 6    	HL022A  	 1885	 2013	0.001
+## 7    	HL021B  	 1950	 2013	0.001
+## 8    	HL021A  	 1880	 2013	0.001
+## 9    	HL020A  	 1893	 2013	0.001
+## 10   	HL020B  	 1903	 2013	0.001
+## 11   	HL015A  	 1892	 2013	0.001
+## 12   	HL015B  	 1893	 2013	0.001
+## 13   	HL016A  	 1924	 2013	0.001
+## 14   	HL016B  	 1888	 2013	0.001
+## 15   	HL017A  	 1906	 2013	0.001
+## 16   	HL017B  	 1906	 2013	0.001
+## 17   	HL018A  	 1920	 2013	0.001
+## 18   	HL018B  	 1887	 2013	0.001
+## 19   	HL009A  	 1905	 2013	0.001
+## 20   	HL006A  	 1923	 2013	0.001
+## 21   	HL004A  	 1878	 2013	0.001
+## 22   	HL009B  	 1886	 2013	0.001
+## 23   	HL006B  	 1939	 2013	0.001
+## 24   	HL013A  	 1923	 2013	0.001
+## 25   	HL012A  	 1934	 2013	0.001
+## 26   	HL012B  	 1912	 2013	0.001
+## 27   	HL011A  	 1920	 2013	0.001
+## 28   	HL005A  	 1876	 2013	0.001
+## 29   	HL004B  	 1864	 2013	0.001
+## 30   	HL005B  	 1969	 2013	0.001
+## 31   	HL002B  	 1816	 2013	0.001
+## 32   	HL010B  	 1912	 2013	0.001
+## 33   	HL011B  	 1911	 2013	0.001
+## 34   	HL002A  	 1821	 2013	0.001
+## 35   	HL010A  	 1935	 2013	0.001
+## 36   	HL013B  	 1923	 2013	0.001
+```
+
+```r
+KL.rwl <- read.rwl("data/csank_KL.rwl")
+```
+
+```
+## Attempting to automatically detect format.
+## Assuming a Tucson format file.
+## There does not appear to be a header in the rwl file
+## There are 20 series
+## 1    	KL001A  	 1911	 2013	0.001
+## 2    	KL001B  	 1908	 2013	0.001
+## 3    	KL002A  	 1917	 2013	0.001
+## 4    	KL002B  	 1892	 2013	0.001
+## 5    	KL003A  	 1879	 2013	0.001
+## 6    	KL003B  	 1882	 2013	0.001
+## 7    	KL004A  	 1898	 2013	0.001
+## 8    	KL004B  	 1900	 2013	0.001
+## 9    	KL005A  	 1891	 2013	0.001
+## 10   	KL005B  	 1854	 2013	0.001
+## 11   	KL006A  	 1893	 2013	0.001
+## 12   	KL006B  	 1904	 2013	0.001
+## 13   	KL007A  	 1908	 2013	0.001
+## 14   	KL007B  	 1931	 2013	0.001
+## 15   	KL008A  	 1902	 2013	0.001
+## 16   	KL008B  	 1879	 2013	0.001
+## 17   	KL009A  	 1898	 2013	0.001
+## 18   	KL009B  	 1875	 2013	0.001
+## 19   	KL010A  	 1868	 2013	0.001
+## 20   	KL010B  	 1833	 2013	0.001
+```
+
+```r
+WB.rwl <- read.rwl("data/csank_WB.rwl")
+```
+
+```
+## Attempting to automatically detect format.
+## Assuming a Tucson format file.
+## There does not appear to be a header in the rwl file
+## There are 32 series
+## 1    	WB17    	 1891	 2014	0.001
+## 2    	WB18A   	 1856	 2014	0.001
+## 3    	WB18B   	 1890	 2014	0.001
+## 4    	WB19    	 1844	 2014	0.001
+## 5    	WB20    	 1882	 2014	0.001
+## 6    	WB12    	 1783	 2014	0.001
+## 7    	WB10    	 1816	 2014	0.001
+## 8    	WB05    	 1829	 2014	0.001
+## 9    	WB01    	 1860	 2014	0.001
+## 10   	WB06    	 1896	 2014	0.001
+## 11   	WB08    	 1833	 2011	0.001
+## 12   	WB03    	 1817	 2014	0.001
+## 13   	WB07    	 1829	 2014	0.001
+## 14   	WB16    	 1820	 2013	0.001
+## 15   	WB11    	 1815	 2013	0.001
+## 16   	WB09    	 1893	 2013	0.001
+## 17   	WB15    	 1811	 2013	0.001
+## 18   	WB29    	 1762	 2013	0.001
+## 19   	WB29B   	 1787	 2013	0.001
+## 20   	WB20A   	 1776	 2013	0.001
+## 21   	WB20B   	 1761	 2013	0.001
+## 22   	WB05A   	 1793	 2013	0.001
+## 23   	WB05B   	 1856	 2013	0.001
+## 24   	WB08A   	 1879	 2013	0.001
+## 25   	WB08B   	 1769	 2013	0.001
+## 26   	WB06B   	 1839	 2013	0.001
+## 27   	WB09A   	 1893	 2013	0.001
+## 28   	WB09B   	 1864	 2013	0.001
+## 29   	WB010   	 1786	 2013	0.001
+## 30   	WB07A   	 1800	 2013	0.001
+## 31   	WB07C   	 1792	 2013	0.001
+## 32   	WB03A   	 1861	 2013	0.001
+```
+
+### HL
+
+
+```r
+rwl.report(HL.rwl)
+```
+
+```
+## Number of dated series: 36 
+## Number of measurements: 3917 
+## Avg series length: 108.8056 
+## Range:  198 
+## Span:  1816 - 2013 
+## Mean (Std dev) series intercorrelation: 0.5312548 (0.1357166)
+## Mean (Std dev) AR1: 0.7656944 (0.1228716)
+## -------------
+## Years with absent rings listed by series 
+##     None 
+## -------------
+## Years with internal NA values listed by series 
+##     None
+```
+
+```r
+master.corr.HL <- corr.rwl.seg(pinery.rwl.trunc, master=HL.rwl, seg.length=20, bin.floor=1904)
+```
+
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
 
 
 
+```r
+#correlation by series
+overall.8 <- master.corr.HL$overall %>% as.data.frame() %>% round(2)
+
+#average series correlation
+as.data.frame(master.corr.HL$avg.seg.rho) %>% round(2)
+```
+
+```
+##           master.corr.HL$avg.seg.rho
+## 1904.1923                       0.43
+## 1914.1933                       0.24
+## 1924.1943                       0.19
+## 1934.1953                       0.32
+## 1944.1963                       0.08
+## 1954.1973                       0.03
+## 1964.1983                       0.07
+## 1974.1993                       0.27
+## 1984.2003                       0.27
+## 1994.2013                       0.21
+```
+
+```r
+summarize(overall.8, mean = mean(rho)) %>% round(2)
+```
+
+```
+##   mean
+## 1 0.23
+```
+
+
+### KL
 
 
 
+```r
+rwl.report(KL.rwl)
+```
+
+```
+## Number of dated series: 20 
+## Number of measurements: 2457 
+## Avg series length: 122.85 
+## Range:  181 
+## Span:  1833 - 2013 
+## Mean (Std dev) series intercorrelation: 0.4567807 (0.1866021)
+## Mean (Std dev) AR1: 0.69645 (0.08356055)
+## -------------
+## Years with absent rings listed by series 
+##     None 
+## -------------
+## Years with internal NA values listed by series 
+##     None
+```
+
+```r
+master.corr.KL <- corr.rwl.seg(pinery.rwl.trunc, master=KL.rwl, seg.length=20, bin.floor = 1904)
+```
+
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
+
+
+```r
+#correlation by series
+overall.9 <- master.corr.KL$overall %>% as.data.frame() %>% round(2)
+
+#average series correlation
+as.data.frame(master.corr.KL$avg.seg.rho) %>% round(2)
+```
+
+```
+##           master.corr.KL$avg.seg.rho
+## 1904.1923                       0.15
+## 1914.1933                       0.27
+## 1924.1943                       0.23
+## 1934.1953                       0.11
+## 1944.1963                       0.01
+## 1954.1973                       0.19
+## 1964.1983                       0.12
+## 1974.1993                       0.16
+## 1984.2003                       0.25
+## 1994.2013                       0.30
+```
+
+```r
+summarize(overall.9, mean = mean(rho)) %>% round(2)
+```
+
+```
+##   mean
+## 1 0.18
+```
+
+### WB
+
+
+```r
+rwl.report(WB.rwl)
+```
+
+```
+## Number of dated series: 32 
+## Number of measurements: 5875 
+## Avg series length: 183.5938 
+## Range:  254 
+## Span:  1761 - 2014 
+## Mean (Std dev) series intercorrelation: 0.3726284 (0.199224)
+## Mean (Std dev) AR1: 0.8110625 (0.08810146)
+## -------------
+## Years with absent rings listed by series 
+##     None 
+## -------------
+## Years with internal NA values listed by series 
+##     None
+```
+
+```r
+master.corr.WB <- corr.rwl.seg(pinery.rwl.trunc, master=HL.rwl, seg.length=20, bin.floor = 1904)
+```
+
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
+
+
+
+
+```r
+#correlation by series
+overall.10 <- master.corr.WB$overall %>% as.data.frame() %>% round(2)
+
+#average series correlation
+as.data.frame(master.corr.WB$avg.seg.rho) %>% round(2)
+```
+
+```
+##           master.corr.WB$avg.seg.rho
+## 1904.1923                       0.43
+## 1914.1933                       0.24
+## 1924.1943                       0.19
+## 1934.1953                       0.32
+## 1944.1963                       0.08
+## 1954.1973                       0.03
+## 1964.1983                       0.07
+## 1974.1993                       0.27
+## 1984.2003                       0.27
+## 1994.2013                       0.21
+```
+
+```r
+summarize(overall.10, mean = mean(rho)) %>% round(2)
+```
+
+```
+##   mean
+## 1 0.23
+```
 
 
 
@@ -1442,7 +1748,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 48, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
 
 ```
 ## Verbose output: P1809Be
@@ -1481,7 +1787,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 80, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-2.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-2.png)<!-- -->
 
 ```
 ## Verbose output: P1809Ce
@@ -1517,7 +1823,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 80, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-3.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-3.png)<!-- -->
 
 ```
 ## Verbose output: P1810Ae
@@ -1553,7 +1859,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 81, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-4.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-4.png)<!-- -->
 
 ```
 ## Verbose output: P1810Be
@@ -1589,7 +1895,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 74, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-5.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-5.png)<!-- -->
 
 ```
 ## Verbose output: P1810Ce
@@ -1625,7 +1931,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 80, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-6.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-6.png)<!-- -->
 
 ```
 ## Verbose output: P1811Ae
@@ -1661,7 +1967,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 80, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-7.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-7.png)<!-- -->
 
 ```
 ## Verbose output: P1811Be
@@ -1697,7 +2003,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 80, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-8.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-8.png)<!-- -->
 
 ```
 ## Verbose output: P1811Ce
@@ -1733,7 +2039,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 80, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-9.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-9.png)<!-- -->
 
 ```
 ## Verbose output: P1812Ae
@@ -1769,7 +2075,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 81, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-10.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-10.png)<!-- -->
 
 ```
 ## Verbose output: P1812Be
@@ -1805,7 +2111,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 75, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-11.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-11.png)<!-- -->
 
 ```
 ## Verbose output: P1812De
@@ -1841,7 +2147,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ##  nyrs = 75, f = 0.5
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-22-12.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-29-12.png)<!-- -->
 
 ```
 ## $series
@@ -4901,7 +5207,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1809Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fe8f5fa94a0>
+## <environment: 0x7f8264640258>
 ## 
 ## $model.info$P1809Ce$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -4944,7 +5250,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fe8f4442190>
+## <environment: 0x7f826118cda0>
 ## 
 ## $model.info$P1810Ae$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -4987,7 +5293,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fe8f92e29f8>
+## <environment: 0x7f82629e6e28>
 ## 
 ## $model.info$P1810Be$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5030,7 +5336,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fe8da10b5f8>
+## <environment: 0x7f8264191458>
 ## 
 ## $model.info$P1810Ce$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5073,7 +5379,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fe8db057bb0>
+## <environment: 0x7f82649f8c88>
 ## 
 ## $model.info$P1811Ae$ModNegExp$coefs
 ##      Estimate  Std. Error    t value     Pr(>|t|)
@@ -5116,7 +5422,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fe8db1f4f10>
+## <environment: 0x7f8263c97860>
 ## 
 ## $model.info$P1811Be$ModNegExp$coefs
 ##      Estimate  Std. Error    t value     Pr(>|t|)
@@ -5159,7 +5465,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fe8db9b20f8>
+## <environment: 0x7f8263bfaaf8>
 ## 
 ## $model.info$P1811Ce$ModNegExp$coefs
 ##      Estimate  Std. Error   t value     Pr(>|t|)
@@ -5202,7 +5508,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fe8dc9c62e8>
+## <environment: 0x7f826470b298>
 ## 
 ## $model.info$P1812Ae$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5245,7 +5551,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fe8f508c3c0>
+## <environment: 0x7f826336f8a8>
 ## 
 ## $model.info$P1812Be$ModNegExp$coefs
 ##      Estimate  Std. Error   t value     Pr(>|t|)
@@ -5288,7 +5594,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812De$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7fe8f4cb3188>
+## <environment: 0x7f8262181d30>
 ## 
 ## $model.info$P1812De$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5548,16 +5854,32 @@ pinery.RES <- pinery.crn %>% select(-xxxstd)
 
 
 ```r
-crn.plot(pinery.crn, add.spline = TRUE, nyrs=15)
+jpeg(file = "figures/chronology.jpeg", width = 18, height = 12, units = "cm", res = 600)
+
+crn.plot(pinery.STD, add.spline = TRUE, nyrs=15)
+
+dev.off()
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
+```
+## quartz_off_screen 
+##                 2
+```
+
+```r
+crn.plot(pinery.STD, add.spline = TRUE, nyrs=15)
+```
+
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
 
 
 ## Add Uncertainty Estimates
 
 
 ```r
+jpeg(file = "figures/chronology_se.jpeg", width = 18, height = 12, units = "cm", res = 600)
+
+
 pinery.avg <- apply(pinery.rwi,1,mean,na.rm=TRUE)
 
 yrs <- time(pinery.crn)
@@ -5583,9 +5905,27 @@ lines(yrs, pinery.avg, col = "black")
 lines(yrs, ffcsaps(pinery.avg, nyrs = 15), col = "red", lwd = 1) #adds a spline
 axis(1); axis(2); axis(3); axis(4)
 box()
+
+dev.off()
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
+```
+## quartz_off_screen 
+##                 2
+```
+
+```r
+plot(yrs, pinery.avg, type = "n", xlab = "Year", ylab = "RWI", axes=FALSE)
+xx <- c(yrs,rev(yrs))
+yy <- c(pinery.avg+pinery.se*2,rev(pinery.avg-pinery.se*2))
+polygon(xx,yy,col="grey80",border = NA)
+lines(yrs, pinery.avg, col = "black")
+lines(yrs, ffcsaps(pinery.avg, nyrs = 15), col = "red", lwd = 1) #adds a spline
+axis(1); axis(2); axis(3); axis(4)
+box()
+```
+
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
 
 # Save Outputs
 
@@ -5650,7 +5990,7 @@ Sys.time()
 ```
 
 ```
-## [1] "2020-06-05 15:34:03 PDT"
+## [1] "2020-07-31 16:36:19 PDT"
 ```
 
 ```r
@@ -5660,7 +6000,7 @@ git2r::repository()
 ```
 ## Local:    master /Users/JenBaron/Documents/UWO/UWO NSERC/Statistical Analysis/Dendrochronology/Dendrochronology in R/Dendrochronology_in_R
 ## Remote:   master @ origin (https://github.com/JenBaron/Dendrochronology_in_R.git)
-## Head:     [f63e16a] 2020-06-02: Residual chronology
+## Head:     [54856c6] 2020-06-25: reorganize directory
 ```
 
 ```r
@@ -5670,7 +6010,7 @@ sessionInfo()
 ```
 ## R version 4.0.0 (2020-04-24)
 ## Platform: x86_64-apple-darwin17.0 (64-bit)
-## Running under: macOS Catalina 10.15.3
+## Running under: macOS Catalina 10.15.5
 ## 
 ## Matrix products: default
 ## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
@@ -5683,20 +6023,20 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_3.3.0 dplyr_0.8.5   dplR_1.7.1   
+## [1] ggplot2_3.3.1 dplyr_1.0.0   dplR_1.7.1   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.4.6       git2r_0.26.1       compiler_4.0.0     pillar_1.4.3      
+##  [1] Rcpp_1.0.4.6       git2r_0.26.1       compiler_4.0.0     pillar_1.4.4      
 ##  [5] plyr_1.8.6         iterators_1.0.12   R.methodsS3_1.8.0  R.utils_2.9.2     
-##  [9] tools_4.0.0        digest_0.6.25      gtable_0.3.0       evaluate_0.14     
-## [13] tibble_3.0.1       lifecycle_0.2.0    lattice_0.20-41    pkgconfig_2.0.3   
-## [17] png_0.1-7          rlang_0.4.5        foreach_1.5.0      Matrix_1.2-18     
-## [21] yaml_2.2.1         xfun_0.13          withr_2.2.0        stringr_1.4.0     
-## [25] knitr_1.28         vctrs_0.2.4        grid_4.0.0         tidyselect_1.0.0  
-## [29] glue_1.4.0         R6_2.4.1           XML_3.99-0.3       rmarkdown_2.1     
-## [33] purrr_0.3.4        magrittr_1.5       codetools_0.2-16   scales_1.1.0      
-## [37] matrixStats_0.56.0 htmltools_0.4.0    ellipsis_0.3.0     MASS_7.3-51.6     
-## [41] assertthat_0.2.1   colorspace_1.4-1   stringi_1.4.6      munsell_0.5.0     
+##  [9] tools_4.0.0        digest_0.6.25      evaluate_0.14      lifecycle_0.2.0   
+## [13] tibble_3.0.1       gtable_0.3.0       lattice_0.20-41    pkgconfig_2.0.3   
+## [17] png_0.1-7          rlang_0.4.6        foreach_1.5.0      Matrix_1.2-18     
+## [21] yaml_2.2.1         xfun_0.14          withr_2.2.0        stringr_1.4.0     
+## [25] knitr_1.28         generics_0.0.2     vctrs_0.3.1        grid_4.0.0        
+## [29] tidyselect_1.1.0   glue_1.4.1         R6_2.4.1           XML_3.99-0.3      
+## [33] rmarkdown_2.1      purrr_0.3.4        magrittr_1.5       codetools_0.2-16  
+## [37] scales_1.1.1       matrixStats_0.56.0 htmltools_0.4.0    ellipsis_0.3.1    
+## [41] MASS_7.3-51.6      colorspace_1.4-1   stringi_1.4.6      munsell_0.5.0     
 ## [45] signal_0.7-6       crayon_1.3.4       R.oo_1.23.0
 ```
 

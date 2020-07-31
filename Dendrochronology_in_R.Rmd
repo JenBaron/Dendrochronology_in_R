@@ -296,13 +296,73 @@ summarize(overall.7, mean = mean(rho)) %>% round(2)
 ```
 
 
+# Compare to Csank
+
+
+```{r}
+HL.rwl <- read.rwl("data/csank_HL.rwl")
+KL.rwl <- read.rwl("data/csank_KL.rwl")
+WB.rwl <- read.rwl("data/csank_WB.rwl")
+```
+
+### HL
+
+```{r}
+rwl.report(HL.rwl)
+master.corr.HL <- corr.rwl.seg(pinery.rwl.trunc, master=HL.rwl, seg.length=20, bin.floor=1904)
+```
 
 
 
+```{r}
+#correlation by series
+overall.8 <- master.corr.HL$overall %>% as.data.frame() %>% round(2)
+
+#average series correlation
+as.data.frame(master.corr.HL$avg.seg.rho) %>% round(2)
+
+
+summarize(overall.8, mean = mean(rho)) %>% round(2)
+```
+
+
+### KL
+
+
+```{r}
+rwl.report(KL.rwl)
+master.corr.KL <- corr.rwl.seg(pinery.rwl.trunc, master=KL.rwl, seg.length=20, bin.floor = 1904)
+```
+
+```{r}
+#correlation by series
+overall.9 <- master.corr.KL$overall %>% as.data.frame() %>% round(2)
+
+#average series correlation
+as.data.frame(master.corr.KL$avg.seg.rho) %>% round(2)
+
+
+summarize(overall.9, mean = mean(rho)) %>% round(2)
+```
+
+### WB
+
+```{r}
+rwl.report(WB.rwl)
+master.corr.WB <- corr.rwl.seg(pinery.rwl.trunc, master=HL.rwl, seg.length=20, bin.floor = 1904)
+```
 
 
 
+```{r}
+#correlation by series
+overall.10 <- master.corr.WB$overall %>% as.data.frame() %>% round(2)
 
+#average series correlation
+as.data.frame(master.corr.WB$avg.seg.rho) %>% round(2)
+
+summarize(overall.10, mean = mean(rho)) %>% round(2)
+```
 
 
 
@@ -379,13 +439,22 @@ pinery.RES <- pinery.crn %>% select(-xxxstd)
 ## Plot Chronology
 
 ```{r}
-crn.plot(pinery.crn, add.spline = TRUE, nyrs=15)
+jpeg(file = "figures/chronology.jpeg", width = 18, height = 12, units = "cm", res = 600)
+
+crn.plot(pinery.STD, add.spline = TRUE, nyrs=15)
+
+dev.off()
+
+crn.plot(pinery.STD, add.spline = TRUE, nyrs=15)
 ```
 
 
 ## Add Uncertainty Estimates
 
 ```{r}
+jpeg(file = "figures/chronology_se.jpeg", width = 18, height = 12, units = "cm", res = 600)
+
+
 pinery.avg <- apply(pinery.rwi,1,mean,na.rm=TRUE)
 
 yrs <- time(pinery.crn)
@@ -402,6 +471,17 @@ pinery.se <- apply(pinery.rwi,1,se)
 pinery.sd <- apply(pinery.rwi,1,sd,na.rm=TRUE)
 
 par(mar = c(2, 2, 2, 2), mgp = c(1.1, 0.1, 0), tcl = 0.25, xaxs='i')
+
+plot(yrs, pinery.avg, type = "n", xlab = "Year", ylab = "RWI", axes=FALSE)
+xx <- c(yrs,rev(yrs))
+yy <- c(pinery.avg+pinery.se*2,rev(pinery.avg-pinery.se*2))
+polygon(xx,yy,col="grey80",border = NA)
+lines(yrs, pinery.avg, col = "black")
+lines(yrs, ffcsaps(pinery.avg, nyrs = 15), col = "red", lwd = 1) #adds a spline
+axis(1); axis(2); axis(3); axis(4)
+box()
+
+dev.off()
 
 plot(yrs, pinery.avg, type = "n", xlab = "Year", ylab = "RWI", axes=FALSE)
 xx <- c(yrs,rev(yrs))

@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+data/
+archive/
+Dendrochronology_in_R_files
+Wavelet-Analysis_files/
+outputs/
