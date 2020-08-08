@@ -430,6 +430,9 @@ head(pinery.crn)
 #pinery.crn$samp.depth <- NULL
 ```
 
+
+
+
 Remove standard and residual chronologies
 ```{r}
 pinery.STD <- pinery.crn %>% select(-xxxres)
@@ -441,13 +444,32 @@ pinery.RES <- pinery.crn %>% select(-xxxstd)
 ```{r}
 jpeg(file = "figures/chronology.jpeg", width = 18, height = 12, units = "cm", res = 600)
 
+crn.plot(pinery.crn, add.spline = TRUE, nyrs=15)
+
+dev.off()
+
+crn.plot(pinery.crn, add.spline = TRUE, nyrs=15)
+```
+
+
+
+```{r}
+jpeg(file = "figures/chronology_STD.jpeg", width = 18, height = 12, units = "cm", res = 600)
+
 crn.plot(pinery.STD, add.spline = TRUE, nyrs=15)
 
 dev.off()
 
 crn.plot(pinery.STD, add.spline = TRUE, nyrs=15)
-```
 
+jpeg(file = "figures/chronology_RES.jpeg", width = 18, height = 12, units = "cm", res = 600)
+
+crn.plot(pinery.RES, add.spline = TRUE, nyrs=15)
+
+dev.off()
+
+crn.plot(pinery.RES, add.spline = TRUE, nyrs=15)
+```
 
 ## Add Uncertainty Estimates
 
@@ -493,9 +515,12 @@ axis(1); axis(2); axis(3); axis(4)
 box()
 ```
 
+
+
 # Save Outputs
 
 ```{r}
+write.csv(pinery.se, "outputs/pinery_se.csv")
 write.crn(pinery.STD, "outputs/pinery_STD.crn")
 write.crn(pinery.RES, "outputs/pinery_RES.crn")
 ```
