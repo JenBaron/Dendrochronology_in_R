@@ -66,6 +66,7 @@ pinery.rwl.trunc <- pinery.rwl[46:166,]
 
 # Crossdating
 
+## Interseries Correlation
 
 ```{r}
 pinery.corr <- corr.rwl.seg(pinery.rwl.trunc, seg.length = 50, 1918)
@@ -99,7 +100,13 @@ serially between each tree-ring series and a master chronology built from
 all the other series in the rwl object (leave-one-out principle).
 
 ```{r}
-interseries.cor(pinery.rwl) %>% round(2)
+interseries.p <- interseries.cor(pinery.rwl, prewhiten=FALSE) %>% round(2)
+interseries.p
+interseries.p2 <- interseries.cor(pinery.rwl, prewhiten=TRUE) %>% round(2)
+interseries.p2
+
+interseries.p %>% summarize(mean.r = mean(res.cor) %>% round(2))
+interseries.p2 %>% summarize(mean.r = mean(res.cor) %>% round(2))
 ```
 
 
@@ -349,7 +356,7 @@ summarize(overall.9, mean = mean(rho)) %>% round(2)
 
 ```{r}
 rwl.report(WB.rwl)
-master.corr.WB <- corr.rwl.seg(pinery.rwl.trunc, master=HL.rwl, seg.length=20, bin.floor = 1904)
+master.corr.WB <- corr.rwl.seg(pinery.rwl.trunc, master=WB.rwl, seg.length=20, bin.floor = 1904)
 ```
 
 
@@ -392,12 +399,17 @@ pinery.rwi <- pinery.rwi.info$series
 
 ### Read IDs
 
+
+
+
 ```{r}
 pinery.ids <- read.ids(pinery.rwl.trunc)
 pinery.ids
 ```
 
 ### Standard Chronology
+
+
 
 ```{r}
 rwi.stats(pinery.rwi, pinery.ids, prewhiten=FALSE) #running.window=TRUE, window.length = 50)
@@ -413,8 +425,20 @@ rwi.stats(pinery.rwi, pinery.ids, prewhiten=TRUE) #running.window=TRUE, window.l
 
 ### Interseries Correlations
 
+
 ```{r}
-interseries.cor(pinery.rwi, biweight=TRUE) %>% round(3)
+ic1 <- interseries.cor(pinery.rwi, biweight=TRUE, prewhiten=FALSE) %>% round(3)
+ic2 <- interseries.cor(pinery.rwi, biweight=TRUE, prewhiten=TRUE) %>% round(3)
+
+ic1 %>% summarize(mean_cor = mean(res.cor) %>% round(2))
+ic2 %>% summarize(mean_cor = mean(res.cor) %>% round(2))
+```
+
+Readers interested in the differences between subsample signal strength and the more commonly used (running) expressed population signal should look at Buras (2017) on the common misuse of the expressed population signal as well as Cook and Pederson (2011) for a more general approach to categorizing variability in tree-ring data.
+```{r}
+pinery.sss <- sss(pinery.rwl, ids = pinery.ids) %>% round(3)
+pinery.sss
+mean(pinery.sss) %>% round(2)
 ```
 
 
@@ -442,7 +466,7 @@ pinery.RES <- pinery.crn %>% select(-xxxstd)
 ## Plot Chronology
 
 ```{r}
-jpeg(file = "figures/chronology.jpeg", width = 18, height = 12, units = "cm", res = 600)
+jpeg(file = "figures/chronology.jpeg", width = 18, height = 18, units = "cm", res = 600)
 
 crn.plot(pinery.crn, add.spline = TRUE, nyrs=15)
 
