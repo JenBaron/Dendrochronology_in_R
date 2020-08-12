@@ -564,6 +564,7 @@ pinery.rwl.trunc <- pinery.rwl[46:166,]
 
 # Crossdating
 
+## Interseries Correlation
 
 
 ```r
@@ -650,7 +651,29 @@ all the other series in the rwl object (leave-one-out principle).
 
 
 ```r
-interseries.cor(pinery.rwl) %>% round(2)
+interseries.p <- interseries.cor(pinery.rwl, prewhiten=FALSE) %>% round(2)
+interseries.p
+```
+
+```
+##         res.cor p.val
+## P1809Ae    0.60  0.00
+## P1809Be   -0.04  0.66
+## P1809Ce    0.63  0.00
+## P1810Ae    0.47  0.00
+## P1810Be    0.53  0.00
+## P1810Ce    0.66  0.00
+## P1811Ae    0.64  0.00
+## P1811Be    0.58  0.00
+## P1811Ce    0.61  0.00
+## P1812Ae    0.57  0.00
+## P1812Be    0.41  0.00
+## P1812De    0.67  0.00
+```
+
+```r
+interseries.p2 <- interseries.cor(pinery.rwl, prewhiten=TRUE) %>% round(2)
+interseries.p2
 ```
 
 ```
@@ -667,6 +690,24 @@ interseries.cor(pinery.rwl) %>% round(2)
 ## P1812Ae    0.37     0
 ## P1812Be    0.47     0
 ## P1812De    0.60     0
+```
+
+```r
+interseries.p %>% summarize(mean.r = mean(res.cor) %>% round(2))
+```
+
+```
+##   mean.r
+## 1   0.53
+```
+
+```r
+interseries.p2 %>% summarize(mean.r = mean(res.cor) %>% round(2))
+```
+
+```
+##   mean.r
+## 1   0.47
 ```
 
 
@@ -1659,7 +1700,7 @@ rwl.report(WB.rwl)
 ```
 
 ```r
-master.corr.WB <- corr.rwl.seg(pinery.rwl.trunc, master=HL.rwl, seg.length=20, bin.floor = 1904)
+master.corr.WB <- corr.rwl.seg(pinery.rwl.trunc, master=WB.rwl, seg.length=20, bin.floor = 1904)
 ```
 
 ![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
@@ -1677,16 +1718,16 @@ as.data.frame(master.corr.WB$avg.seg.rho) %>% round(2)
 
 ```
 ##           master.corr.WB$avg.seg.rho
-## 1904.1923                       0.43
-## 1914.1933                       0.24
-## 1924.1943                       0.19
-## 1934.1953                       0.32
-## 1944.1963                       0.08
-## 1954.1973                       0.03
-## 1964.1983                       0.07
-## 1974.1993                       0.27
-## 1984.2003                       0.27
-## 1994.2013                       0.21
+## 1904.1923                       0.24
+## 1914.1933                       0.13
+## 1924.1943                       0.06
+## 1934.1953                      -0.01
+## 1944.1963                      -0.19
+## 1954.1973                      -0.16
+## 1964.1983                      -0.10
+## 1974.1993                       0.30
+## 1984.2003                       0.34
+## 1994.2013                       0.20
 ```
 
 ```r
@@ -1695,7 +1736,7 @@ summarize(overall.10, mean = mean(rho)) %>% round(2)
 
 ```
 ##   mean
-## 1 0.23
+## 1  0.1
 ```
 
 
@@ -5207,7 +5248,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1809Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7f8264640258>
+## <environment: 0x7fb507b81ea0>
 ## 
 ## $model.info$P1809Ce$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5250,7 +5291,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7f826118cda0>
+## <environment: 0x7fb503da5158>
 ## 
 ## $model.info$P1810Ae$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5293,7 +5334,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7f82629e6e28>
+## <environment: 0x7fb50690e8c8>
 ## 
 ## $model.info$P1810Be$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5336,7 +5377,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1810Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7f8264191458>
+## <environment: 0x7fb5065f33b8>
 ## 
 ## $model.info$P1810Ce$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5379,7 +5420,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7f82649f8c88>
+## <environment: 0x7fb5093b60a8>
 ## 
 ## $model.info$P1811Ae$ModNegExp$coefs
 ##      Estimate  Std. Error    t value     Pr(>|t|)
@@ -5422,7 +5463,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7f8263c97860>
+## <environment: 0x7fb509955430>
 ## 
 ## $model.info$P1811Be$ModNegExp$coefs
 ##      Estimate  Std. Error    t value     Pr(>|t|)
@@ -5465,7 +5506,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1811Ce$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7f8263bfaaf8>
+## <environment: 0x7fb507e49ab0>
 ## 
 ## $model.info$P1811Ce$ModNegExp$coefs
 ##      Estimate  Std. Error   t value     Pr(>|t|)
@@ -5508,7 +5549,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812Ae$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7f826470b298>
+## <environment: 0x7fb5075516e0>
 ## 
 ## $model.info$P1812Ae$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5551,7 +5592,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812Be$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7f826336f8a8>
+## <environment: 0x7fb5072700e8>
 ## 
 ## $model.info$P1812Be$ModNegExp$coefs
 ##      Estimate  Std. Error   t value     Pr(>|t|)
@@ -5594,7 +5635,7 @@ detrend(rwl = pinery.rwl.trunc, method = c("ModNegExp", "Spline"), make.plot = T
 ## 
 ## $model.info$P1812De$ModNegExp$formula
 ## Y ~ I(a * exp(b * seq_along(Y)) + k)
-## <environment: 0x7f8262181d30>
+## <environment: 0x7fb504fe4c60>
 ## 
 ## $model.info$P1812De$ModNegExp$coefs
 ##     Estimate Std. Error   t value     Pr(>|t|)
@@ -5743,6 +5784,9 @@ pinery.rwi <- pinery.rwi.info$series
 ### Read IDs
 
 
+
+
+
 ```r
 pinery.ids <- read.ids(pinery.rwl.trunc)
 pinery.ids
@@ -5765,6 +5809,8 @@ pinery.ids
 ```
 
 ### Standard Chronology
+
+
 
 
 ```r
@@ -5797,24 +5843,58 @@ rwi.stats(pinery.rwi, pinery.ids, prewhiten=TRUE) #running.window=TRUE, window.l
 ### Interseries Correlations
 
 
+
 ```r
-interseries.cor(pinery.rwi, biweight=TRUE) %>% round(3)
+ic1 <- interseries.cor(pinery.rwi, biweight=TRUE, prewhiten=FALSE) %>% round(3)
+ic2 <- interseries.cor(pinery.rwi, biweight=TRUE, prewhiten=TRUE) %>% round(3)
+
+ic1 %>% summarize(mean_cor = mean(res.cor) %>% round(2))
 ```
 
 ```
-##         res.cor p.val
-## P1809Ae   0.612     0
-## P1809Be   0.477     0
-## P1809Ce   0.546     0
-## P1810Ae   0.478     0
-## P1810Be   0.590     0
-## P1810Ce   0.572     0
-## P1811Ae   0.477     0
-## P1811Be   0.488     0
-## P1811Ce   0.440     0
-## P1812Ae   0.555     0
-## P1812Be   0.362     0
-## P1812De   0.528     0
+##   mean_cor
+## 1     0.38
+```
+
+```r
+ic2 %>% summarize(mean_cor = mean(res.cor) %>% round(2))
+```
+
+```
+##   mean_cor
+## 1     0.51
+```
+
+Readers interested in the differences between subsample signal strength and the more commonly used (running) expressed population signal should look at Buras (2017) on the common misuse of the expressed population signal as well as Cook and Pederson (2011) for a more general approach to categorizing variability in tree-ring data.
+
+```r
+pinery.sss <- sss(pinery.rwl, ids = pinery.ids) %>% round(3)
+pinery.sss
+```
+
+```
+##   [1] 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545
+##  [13] 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545
+##  [25] 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.545 0.783 0.915
+##  [37] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+##  [49] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+##  [61] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+##  [73] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+##  [85] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+##  [97] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+## [109] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+## [121] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+## [133] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+## [145] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+## [157] 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 0.783
+```
+
+```r
+mean(pinery.sss) %>% round(2)
+```
+
+```
+## [1] 0.9
 ```
 
 
@@ -5843,6 +5923,9 @@ head(pinery.crn)
 #pinery.crn$samp.depth <- NULL
 ```
 
+
+
+
 Remove standard and residual chronologies
 
 ```r
@@ -5854,7 +5937,29 @@ pinery.RES <- pinery.crn %>% select(-xxxstd)
 
 
 ```r
-jpeg(file = "figures/chronology.jpeg", width = 18, height = 12, units = "cm", res = 600)
+jpeg(file = "figures/chronology.jpeg", width = 18, height = 18, units = "cm", res = 600)
+
+crn.plot(pinery.crn, add.spline = TRUE, nyrs=15)
+
+dev.off()
+```
+
+```
+## quartz_off_screen 
+##                 2
+```
+
+```r
+crn.plot(pinery.crn, add.spline = TRUE, nyrs=15)
+```
+
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
+
+
+
+
+```r
+jpeg(file = "figures/chronology_STD.jpeg", width = 18, height = 12, units = "cm", res = 600)
 
 crn.plot(pinery.STD, add.spline = TRUE, nyrs=15)
 
@@ -5870,8 +5975,26 @@ dev.off()
 crn.plot(pinery.STD, add.spline = TRUE, nyrs=15)
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
 
+```r
+jpeg(file = "figures/chronology_RES.jpeg", width = 18, height = 12, units = "cm", res = 600)
+
+crn.plot(pinery.RES, add.spline = TRUE, nyrs=15)
+
+dev.off()
+```
+
+```
+## quartz_off_screen 
+##                 2
+```
+
+```r
+crn.plot(pinery.RES, add.spline = TRUE, nyrs=15)
+```
+
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-39-2.png)<!-- -->
 
 ## Add Uncertainty Estimates
 
@@ -5925,12 +6048,15 @@ axis(1); axis(2); axis(3); axis(4)
 box()
 ```
 
-![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
+![](Dendrochronology_in_R_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
+
+
 
 # Save Outputs
 
 
 ```r
+write.csv(pinery.se, "outputs/pinery_se.csv")
 write.crn(pinery.STD, "outputs/pinery_STD.crn")
 ```
 
@@ -5990,7 +6116,7 @@ Sys.time()
 ```
 
 ```
-## [1] "2020-07-31 16:36:19 PDT"
+## [1] "2020-08-11 17:10:05 PDT"
 ```
 
 ```r
@@ -6000,7 +6126,7 @@ git2r::repository()
 ```
 ## Local:    master /Users/JenBaron/Documents/UWO/UWO NSERC/Statistical Analysis/Dendrochronology/Dendrochronology in R/Dendrochronology_in_R
 ## Remote:   master @ origin (https://github.com/JenBaron/Dendrochronology_in_R.git)
-## Head:     [54856c6] 2020-06-25: reorganize directory
+## Head:     [f66d456] 2020-08-12: updated interseries correlation & sss
 ```
 
 ```r
@@ -6010,7 +6136,7 @@ sessionInfo()
 ```
 ## R version 4.0.0 (2020-04-24)
 ## Platform: x86_64-apple-darwin17.0 (64-bit)
-## Running under: macOS Catalina 10.15.5
+## Running under: macOS Catalina 10.15.6
 ## 
 ## Matrix products: default
 ## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
