@@ -11,6 +11,8 @@ output:
     toc_float: yes
 ---
 
+Pinery dendrochronology script
+
 ```{r global_options, echo = TRUE}
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
@@ -69,7 +71,8 @@ pinery.rwl.trunc <- pinery.rwl[46:166,]
 ## Interseries Correlation
 
 ```{r}
-pinery.corr <- corr.rwl.seg(pinery.rwl.trunc, seg.length = 50, 1918)
+pinery.corr <- corr.rwl.seg(pinery.rwl.trunc, seg.length = 50, 1918) 
+corr.rwl.seg(pinery.rwl.trunc, seg.length = 16, 1953) #compare to isotopes
 ```
 
 ```{r}
